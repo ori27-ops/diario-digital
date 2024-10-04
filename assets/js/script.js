@@ -5,6 +5,9 @@ import {onAuthStateChanged} from "https://www.gstatic.com/firebasejs/10.14.0/fir
 import { checkLogin } from "./checkLogin.js";
 
 import "./signupForm.js";
+import "./signOut.js";
+import "./signinForm.js";
+import "./googleLogin.js";
 
 onAuthStateChanged(auth, async (user) => {
     console.log(user);
