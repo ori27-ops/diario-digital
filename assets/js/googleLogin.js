@@ -18,7 +18,7 @@ googleButton.addEventListener("click", async () => {
         const signinModal = document.querySelector("#signin-modal");
         const modal = bootstrap.Modal.getInstance(signinModal);
         modal.hide()
-        showMessage("Sesión iniciada", ("success"))
+        showMessage("Sesión iniciada", ("success"));
     }catch(error) {
         console.log(error)
     }

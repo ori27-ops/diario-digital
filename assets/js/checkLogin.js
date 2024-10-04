@@ -10,7 +10,7 @@ export const checkLogin = (user) => {
         loggednOut.forEach((element) => (element.style.display = "none"));
   
         mainContainer.style.display = "block"
-        saludo.textContent = `Bienvenid@ ${user.email}`;
+        saludo.textContent = `Bienvenid@ ${user.emaul}`;
     } else {
         loggednOut.forEach((element) => (element.style.display = "block"));
         loggednIn.forEach((element) => (element.style.display = "none"));
