@@ -1,21 +1,27 @@
-const loggednIn = document.querySelectorAll(".logged-in");
-const loggednOut = document.querySelectorAll(".logged-out");
+import { setupTasks } from "./setupTasks.js";
+
+const loggedIn = document.querySelectorAll(".logged-in");
+const loggedOut = document.querySelectorAll(".logged-out");
 const mainContainer = document.querySelector("#main-container");
 const saludo = document.querySelector("#saludo");
 
 export const checkLogin = (user) => {
+  // Modificamos el nav dependiendo si el usuario está logueado o no
+  if (user) {
+    loggedIn.forEach((element) => (element.style.display = "block"));
+    loggedOut.forEach((element) => (element.style.display = "none"));
 
-    if (user){
-        loggednIn.forEach((element) => (element.style.display = "block"));
-        loggednOut.forEach((element) => (element.style.display = "none"));
-  
-        mainContainer.style.display = "block"
-        saludo.textContent = `Bienvenid@ ${user.emaul}`;
-    } else {
-        loggednOut.forEach((element) => (element.style.display = "block"));
-        loggednIn.forEach((element) => (element.style.display = "none"));
-    
-        mainContainer.style.display = "none"
-        saludo.textContent = "";
-    }
-}
+    // Mostramos el main container
+    mainContainer.style.display = "block";
+    saludo.textContent = `Bienvenid@ ${user.email}`;
+
+    setupTasks();
+  } else {
+    loggedOut.forEach((element) => (element.style.display = "block"));
+    loggedIn.forEach((element) => (element.style.display = "none"));
+
+    // Ocultamos el main container
+    mainContainer.style.display = "none";
+    saludo.textContent = "";
+  }
+};

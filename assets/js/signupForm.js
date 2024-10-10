@@ -1,29 +1,41 @@
-import {auth} from "./firebase.js"
-import {createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js"
+import { auth } from "./firebase.js";
+import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js";
 import { showMessage } from "./toastMessage.js";
 
-const signupForm = document.querySelector("#signup-form")
+const signUpForm = document.querySelector("#signup-form");
 
-signupForm.addEventListener("submit", async (e) => {
+signUpForm.addEventListener("submit", async (e) => {
+  // Evitar que se recargue la página
+  e.preventDefault();
+  console.log("Formulario enviado");
 
-    e.preventDefault();
-    console.log("formulario enviado");
+  // Obtener los datos del formulario mediante sus id
+  const email = signUpForm["signup-email"].value;
+  const password = signUpForm["signup-password"].value;
 
-    const email = signupForm["signup-email"].value;
-    const password = signupForm["signup-password"].value;
+  // Manejo de errores
+  try {
+    const userCredentials = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
 
-    try {
-        const userCredentials = await createUserWithEmailAndPassword(auth, email, password);  
+    // Registro exitoso
+    // Mostrar mensaje de éxito
+    showMessage("Usuario registrado", "success");
 
-        showMessage("Usuario registrado", "success"); 
-        //Cerrar el modal
-        const signupModal = document.querySelector("signup-modal");
-        const modal = bootstrap.Modal.getInstance(signupModal);
-        modal.hide();
+    // Cerrar el modal
+    const signupModal = document.querySelector("#signup-modal");
+    const modal = bootstrap.Modal.getInstance(signupModal);
+    modal.hide();
 
-        signupForm.requestFullscreen();
-    } catch(error){
-        console.log(error);
+    // Limpiar el formulario
+    signUpForm.reset();
+  } catch (error) {
+    // Registro fallido
+    console.log(error);
+    // Mostrar mensaje de error
         if (error.code === "auth/email-already-in-use"){
             showMessage("El correo ya está en uso", "error");
         } else if (error.code === "auth/weak-password") {
