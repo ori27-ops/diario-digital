@@ -15,7 +15,7 @@ export const checkLogin = (user) => {
     mainContainer.style.display = "block";
     saludo.textContent = `Bienvenid@ ${user.email}`;
 
-    setupTasks();
+    setupTasks(user);
   } else {
     loggedOut.forEach((element) => (element.style.display = "block"));
     loggedIn.forEach((element) => (element.style.display = "none"));
